@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Microservicio de Procesamiento GPU (Python / PyCUDA)
+  gpu-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.cuda
+    container_name: upsglam-gpu-api
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - upsglam-network
+
+  # Backend Reactivo Principal (Java / Spring WebFlux)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    container_name: upsglam-backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - UPSGLAM_GPU_API_URL=http://gpu-api:8000
+    depends_on:
+      - gpu-api
+    networks:
+      - upsglam-network
+
+networks:
+  upsglam-network:
+    driver: bridge

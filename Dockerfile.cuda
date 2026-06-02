@@ -1,0 +1,30 @@
+# Usamos la imagen 'devel' porque PyCUDA necesita el compilador 'nvcc' para compilar el SourceModule en tiempo de ejecución
+FROM nvidia/cuda:12.3.1-devel-ubuntu22.04
+
+# Variables de entorno para Python
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+# Instalar dependencias del sistema operativo (Python y utilidades)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python3-dev \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar los requerimientos e instalarlos
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Copiar el resto del código (api.py, filtros.py, etc.)
+COPY . /app
+
+# Exponer el puerto 8000
+EXPOSE 8000
+
+# Comando para iniciar la API con Uvicorn
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]

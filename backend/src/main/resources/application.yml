@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: upsglam-backend
+
+  # Supabase: usar el pooler (IPv4). db.*.supabase.co suele ser solo IPv6 y falla en Docker.
+  # Copia la URL "Transaction pooler" desde Supabase → Settings → Database.
+  r2dbc:
+    url: ${SPRING_R2DBC_URL:r2dbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres?sslMode=require&preparedStatementCacheQueries=0}
+    username: ${SPRING_R2DBC_USERNAME:postgres.ovatryxuymnmceyiiuph}
+    password: ${SPRING_R2DBC_PASSWORD}
+
+# Configuración personalizada de Supabase y Microservicio GPU
+upsglam:
+  gpu-api:
+    # URL del microservicio de PyCUDA
+    url: ${UPSGLAM_GPU_API_URL:http://localhost:8000}
+  supabase:
+    # URL de tu proyecto Supabase
+    url: ${UPSGLAM_SUPABASE_URL:https://ovatryxuymnmceyiiuph.supabase.co}
+    # Clave anónima pública
+    anon-key: ${UPSGLAM_SUPABASE_ANON_KEY:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92YXRyeXh1eW1ubWNleWlpdXBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzNzQ5MTIsImV4cCI6MjA5NDk1MDkxMn0.NmjTlIOXYWYDRQ3Q0VJj2JC2BFmduw5sFmid436PDVc}
+    # Clave de servicio (Service Role Key - usar con extrema precaución, solo backend)
+    service-key: ${UPSGLAM_SUPABASE_SERVICE_KEY:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92YXRyeXh1eW1ubWNleWlpdXBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTM3NDkxMiwiZXhwIjoyMDk0OTUwOTEyfQ.4sg6ZbdpHIJopwiqqO5UTQ6RbSIBlGAUtTsadsiIroc}
+    # JWT Secret para validar los tokens de los usuarios
+    jwt-secret: ${UPSGLAM_SUPABASE_JWT_SECRET:vvWK8pl+1hSzBR1nGPTHD7Id+y6A393OGNL7gnJqbwYCO06Dd8xgsHrOcqN4QIZx6todSJs4zV72pqXDAGNvAg==}
+
+server:
+  port: 8080
