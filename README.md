@@ -1,7 +1,24 @@
-# UPSGlam
+# UPSGlam: Heterogeneous GPU-Accelerated Image Processing Platform
 
-**Red social de imágenes con procesamiento heterogéneo en GPU (CUDA/PyCUDA)**  
-Proyecto de interciclo — Universidad Politécnica Salesiana (UPS)
+[![CUDA](https://img.shields.io/badge/GPU%20Computing-NVIDIA%20CUDA%20%7C%20PyCUDA-76B900.svg?logo=nvidia)](https://developer.nvidia.com/cuda-zone)
+[![FastAPI](https://img.shields.io/badge/GPU%20Microservice-FastAPI%20%7C%20Python-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Spring Boot](https://img.shields.io/badge/Core%20Backend-Java%2017%20%7C%20Spring%20Boot-6DB33F.svg?logo=springboot)](https://spring.io/)
+[![Flutter](https://img.shields.io/badge/Client-Flutter%20%7C%20Dart-02569B.svg?logo=flutter)](https://flutter.dev/)
+[![Docker](https://img.shields.io/badge/Containers-Docker%20Compose-2496ED.svg?logo=docker)](https://www.docker.com/)
+[![Database](https://img.shields.io/badge/Storage-PostgreSQL%20%7C%20Supabase-3ECF8E.svg?logo=supabase)](https://supabase.com/)
+
+> **Plataforma distribuida de procesamiento fotográfico de alto rendimiento con aceleración masiva en GPU (CUDA) y arquitectura de microservicios desacoplada.**
+
+---
+
+## 1. Resumen de Ingeniería
+
+El procesamiento y filtrado convolucional sobre imágenes de alta resolución (4K / 8K) impone un cuello de botella severo cuando se ejecuta secuencialmente en la CPU. En aplicaciones con alta concurrencia, esto degrada los tiempos de respuesta y eleva exponencialmente los costos computacionales.
+
+**UPSGlam** aborda este desafío implementando una **arquitectura distribuida y heterogénea**, donde:
+* Las tareas de coordinación, autenticación, control de acceso y persistencia transaccional se ejecutan en un backend empresarial robusto en **Java 17 / Spring Boot**.
+* Las operaciones de convolución matricial bidimensional se delegan a un microservicio especializado en **Python / FastAPI** que invoca **kernels CUDA personalizados** compilados directamente sobre la GPU NVIDIA mediante **PyCUDA**.
+* Un cliente multiplataforma construido en **Flutter (Dart)** proporciona una experiencia de usuario interactiva y fluida con edición y previsualización en tiempo real.
 
 ---
 
