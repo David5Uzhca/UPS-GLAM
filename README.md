@@ -11,7 +11,7 @@
 
 ---
 
-## 1. Resumen de Ingeniería
+## Resumen de Ingeniería
 
 El procesamiento y filtrado convolucional sobre imágenes de alta resolución (4K / 8K) impone un cuello de botella severo cuando se ejecuta secuencialmente en la CPU. En aplicaciones con alta concurrencia, esto degrada los tiempos de respuesta y eleva exponencialmente los costos computacionales.
 
